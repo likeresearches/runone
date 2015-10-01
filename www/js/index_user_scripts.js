@@ -13,11 +13,33 @@
     {
         //Resultado para quando capturar a posição GPS
         var fnCapturar = function aoCapturar(position){
+            
             //Gravar dados da posição capturada em uma variável
             var coords = position.coords;
+            
+            //JSON request for API
+            $.getJSON("http://tccapp.heroku.com/", function(data){
+                alert("Reuqest OK " + data[0].name);
+            });
+            
+            //JSON post for API
+            $.ajax({ 
+                type: "POST",
+                url: 'http://tccapp.herokuapp.com/welcome',
+                dataType: 'json',
+                contentType: 'application/json',
+                crossDomain: true,
+                processData: false,
+                data: JSON.stringify({"name":"Mexico"}),
+                sucess: function (msg) {
+                    alert("Post Ok" + msg);
+                }
+            });
+            
+            
+
             //Exibir dados das coordenadas capturadas
             //navigator.notification.alert(JSON.stringify(coords),"COORDENADAS");
-            
             $("#txtLatitude").val(coords.latitude);
             $("#txtLongitude").val(coords.longitude);
             $("#txtAccuracy").val(coords.accuracy);
