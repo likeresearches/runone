@@ -17,20 +17,25 @@
             //Gravar dados da posição capturada em uma variável
             var coords = position.coords;
             
+            var URL = 'http://tccapp.herokuapp.com/';
+            
             //JSON request for API
-            $.getJSON("http://tccapp.heroku.com/", function(data){
-                alert("Reuqest OK " + data[0].name);
+            $.getJSON(URL, function(data){
+                alert("Request OK " + JSON.stringify(data));
             });
             
             //JSON post for API
             $.ajax({ 
                 type: "POST",
-                url: 'http://tccapp.herokuapp.com/welcome',
+                url: URL+"track",
                 dataType: 'json',
                 contentType: 'application/json',
                 crossDomain: true,
                 processData: false,
-                data: JSON.stringify({"name":"Mexico"}),
+                data: JSON.stringify({"latitude":coords.latitude,
+                                      "longitude":coords.longitude,
+                                      "heading":coords.heading,
+                                      "accuracy":coords.accuracy}),
                 sucess: function (msg) {
                     alert("Post Ok" + msg);
                 }
@@ -47,13 +52,13 @@
             $("#txtHeading").val(coords.heading);
             $("#txtSpeed").val(coords.speed);
             $("#txtAltitudeAcc").val(coords.altitudeAccuracy);
-        }
+        };
         
         
         
         var fnFalhar = function(error){
             navigator.notification.alert("Erro ao capturar: "+ error.message, "INFORMARÇAO");
-        }
+        };
         
         var opcoes = { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true};
         
