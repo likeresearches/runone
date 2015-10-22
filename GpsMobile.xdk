@@ -6,7 +6,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "jsapp/template-blank-cordova-ad-project/sample.zip",
       "projectGuid": "f08a05d2-1e5c-4531-b625-941a3f3deaba",
-      "lastModifiedDate": 1443556127753,
+      "lastModifiedDate": 1445366833411,
       "creationDate": 1443549658834
     },
     "XDK-app-designer": "true",
@@ -51,7 +51,8 @@
         "gitref": "",
         "name": "Device",
         "description": "Cordova Device Plugin",
-        "checksum": "adfc61ba"
+        "checksum": "adfc61ba",
+        "cordovaVersion": ">=3.5.0"
       },
       {
         "id": "cordova-plugin-splashscreen",
@@ -68,7 +69,8 @@
         "gitref": "",
         "name": "Splashscreen",
         "description": "Cordova Splashscreen Plugin",
-        "checksum": "170efb68"
+        "checksum": "170efb68",
+        "cordovaVersion": ">=3.5.0"
       },
       {
         "id": "cordova-plugin-dialogs",
@@ -85,6 +87,30 @@
         "topLevel": true,
         "permissions": {},
         "description": "Cordova Notification Plugin",
+        "data": {},
+        "dependedBy": [],
+        "cordovaVersion": ">=3.5.0"
+      },
+      {
+        "id": "com.phonegap.plugins.facebookconnect",
+        "name": "Facebook Connect",
+        "version": "0.11.0",
+        "originType": "repo",
+        "origin": "https://github.com/Wizcorp/phonegap-facebook-plugin.git",
+        "gitref": "v0.11.0",
+        "subdir": ".",
+        "paramvals": {
+          "APP_ID": "752909391504745",
+          "APP_NAME": "GpsMobile"
+        },
+        "sourceLocation": "plugins/com.phonegap.plugins.facebookconnect",
+        "selectedState": "Included",
+        "checksum": "124891ef",
+        "dependsOn": [],
+        "topLevel": true,
+        "cordovaVersion": ">=3.5.0",
+        "permissions": {},
+        "description": "\n      This is the official plugin for Facebook in Apache Cordova/PhoneGap!\n      \n      The Facebook plugin for Apache Cordova allows you to use the same JavaScript code in your\n      Cordova application as you use in your web application.\n      Docs: https://github.com/Wizcorp/phonegap-facebook-plugin.\n    ",
         "data": {},
         "dependedBy": []
       }
@@ -332,5 +358,8 @@
     "gameMetadata": {},
     "projectTags": [],
     "testDirectory": "test"
+  },
+  "editorTab": {
+    "showLiveDevelopmentTasksPanel": false
   }
 }

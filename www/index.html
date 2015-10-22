@@ -55,6 +55,7 @@
   * You can safely ignore the error or comment out this line if you will not be developing a Cordova app.
 -->
         <script src="cordova.js" id="xdkJScordova_"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDUgmRuYnTynppdGI2LNcJwIcRl63aSic&amp;sensor=true" async="" defer=""></script>
 
         <script src="js/app.js"></script>
         <!-- for your event code, see README and file comments for details -->
@@ -72,6 +73,8 @@
         <script type="application/javascript" src="js/index_user_scripts.js"></script>
         <script type="application/javascript" src="lib/jquery.min.js"></script>
         <script type="application/javascript" src="xdk/appdesigner/js/rest-of-space.js"></script>
+        <script type="application/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+        <script type="application/javascript" src="google_maps/google_maps.js"></script>
     </head>
 
     <body class="af" id="afui">
@@ -83,41 +86,12 @@
             <h1>Get GPS Data</h1>
         </header>
         <div class="uwrap" id="content">
-            <div class="upage vertical-col left panel" id="mainpage" data-header="af-header-0" data-footer="none"><a class="button widget uib_w_2 d-margins icon location green" data-uib="app_framework/button" data-ver="1" id="btnGPS">My Position</a>
-
-                <div class="table-thing with-label widget uib_w_3 d-margins" data-uib="app_framework/textarea" data-ver="1">
-                    <label class="narrow-control label-inline" for="txtLatitude">Latitude:</label>
-
-                    <textarea class="wide-control" placeholder="Placeholder Text" rows="1" wrap="soft" id="txtLatitude"></textarea>
-                </div>
-                <div class="table-thing with-label widget uib_w_4 d-margins" data-uib="app_framework/textarea" data-ver="1">
-                    <label class="narrow-control label-inline" for="txtLongitude">Longitude</label>
-
-                    <textarea class="wide-control" placeholder="Placeholder Text" rows="1" wrap="soft" id="txtLongitude"></textarea>
-                </div>
-                <div class="table-thing with-label widget uib_w_5 d-margins" data-uib="app_framework/textarea" data-ver="1">
-                    <label class="narrow-control label-inline" for="txtAccuracy">Accuracy</label>
-
-                    <textarea class="wide-control" placeholder="Placeholder Text" rows="1" wrap="soft" id="txtAccuracy"></textarea>
-                </div>
-                <div class="table-thing with-label widget uib_w_6 d-margins" data-uib="app_framework/textarea" data-ver="1">
-                    <label class="narrow-control label-inline" for="txtAltitude">Altitude</label>
-                    <textarea class="wide-control" placeholder="Placeholder Text" rows="1" wrap="soft" id="txtAltitude"></textarea>
-                </div>
-                <div class="table-thing with-label widget uib_w_7 d-margins" data-uib="app_framework/textarea" data-ver="1">
-                    <label class="narrow-control label-inline" for="txtHeading">Heading</label>
-                    <textarea class="wide-control" placeholder="Placeholder Text" rows="1" wrap="soft" id="txtHeading"></textarea>
-                </div>
-                <div class="table-thing with-label widget uib_w_8 d-margins" data-uib="app_framework/textarea" data-ver="1">
-                    <label class="narrow-control label-inline" for="txtSpeed">Speed</label>
-                    <textarea class="wide-control" placeholder="Placeholder Text" rows="1" wrap="soft" id="txtSpeed"></textarea>
-                </div>
-                <div class="table-thing with-label widget uib_w_9 d-margins" data-uib="app_framework/textarea" data-ver="1">
-                    <label class="narrow-control label-inline" for="txtAltitudeAcc">Altitude Acc</label>
-                    <textarea class="wide-control" placeholder="Placeholder Text" rows="1" wrap="soft" id="txtAltitudeAcc"></textarea>
-                </div>
+            <div class="upage vertical-col left panel" id="mainpage" data-header="af-header-0" data-footer="none"><a class="button widget uib_w_2 d-margins icon location green" data-uib="app_framework/button" data-ver="1" id="btnGPS">My Position</a> 
+                <div class="widget uib_w_3 maps-size d-margins" data-uib="media/google_maps" data-ver="0" data-rpath="null" id="map"></div>
             </div>
+            
         </div>
+
     </body>
 
 </html>
