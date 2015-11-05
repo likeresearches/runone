@@ -1,72 +1,9 @@
-(function()
-{
- "use strict";
- /*
-   hook up event handlers 
- */
- function register_event_handlers()
- {
-    
-    
-     /* button  #btnGPS */
-    $(document).on("click", "#btnGPS", function(evt)
-    {
-        
-        //Resultado para quando capturar a posição GPS
-        var fnCapturar = function aoCapturar(position){
-            
-            //Gravar dados da posição capturada em uma variável
-            var coords = position.coords;
-            
-            var arrayDist; 
-            
-            //var URL = 'http://tccapp.herokuapp.com/';
-            var URL = 'http://localhost:3000/';
-            
-            //JSON request for API
-            $.getJSON(URL, function(data){
-                //alert("Request OK " + JSON.stringify(data));
-            });
-            
-            //JSON post for API
-            $.ajax({ 
-                type: "POST",
-                url: URL+"track",
-                dataType: 'json',
-                contentType: 'application/json',
-                crossDomain: true,
-                processData: false,
-                data: JSON.stringify({"user":"Jobs",
-                                      "status":"live",
-                                      "latitude":coords.latitude,
-                                      "longitude":coords.longitude,
-                                      }),
-                success: function (msg) {
-                    var arrayDist = msg;
-                    alert("Distância = " + JSON.stringify(msg));
-                    $("#txtLatitude").val(arrayDist[0].user);
-                    initMap(arrayDist);
-                }
-            });
-           
-        };
-        
-        var fnFalhar = function(error){
-            navigator.notification.alert("Erro ao capturar: "+ error.message, "INFORMARÇAO");
-        };
-        
-        var opcoes = { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true};
-        
-        navigator.geolocation.getCurrentPosition(fnCapturar, fnFalhar, opcoes); 
-        
-        
-    });
- }
-    
- document.addEventListener("app.Ready", register_event_handlers, false);
-})();
 
 
+
+
+ 
+       
 var map;
 function initMap(arrayDist) {
   map = new google.maps.Map(document.getElementById("map"), { 
@@ -78,11 +15,11 @@ function initMap(arrayDist) {
       var marker = new google.maps.Marker({
           position: new google.maps.LatLng(arrayDist[x].latitude, arrayDist[x].longitude),
           map: map,
-          title: arrayDist[x].user,
+          //title: arrayDist[x].user,
           visible: true
       });
       var infowindow = new google.maps.InfoWindow({
-        content: arrayDist[x].user.concat(arrayDist[x].distancia)
+        content: arrayDist[x].distancia
       });
   
                                               
@@ -92,3 +29,63 @@ function initMap(arrayDist) {
                                                 
 }
 
+
+function requestGroupPosition(){
+    var URL = 'http://localhost:3000/';
+            
+    //JSON request for API
+    $.getJSON(URL, function(data){
+        alert("Request OK " + JSON.stringify(data));
+        initMap(data);
+    });
+}
+
+function watchTimer(){
+
+    var options = {timeout:20000, maximumAge: 1, enableHighAccuracy: true};
+
+    var fail = function(){
+        alert("Geolocation Failed");
+    }
+
+    var suc = function(position){
+        //Gravar dados da posição capturada em uma variável
+            var coords = position.coords;
+            
+            var arrayDist; 
+            
+            //var URL = 'http://tccapp.herokuapp.com/';
+            var URL = 'http://localhost:3000/';
+            
+            //JSON post for API
+            $.ajax({ 
+                type: "POST",
+                url: URL+"track",
+                dataType: 'json',
+                contentType: 'application/json',
+                crossDomain: true,
+                processData: false,
+                data: JSON.stringify({"user":Math.random(),
+                                      "status":"live",
+                                      "latitude":coords.latitude,
+                                      "longitude":coords.longitude,
+                                      })
+//                success: function (msg) {
+//                    alert(JSON.stringify(msg));
+//                }
+            });
+    }
+
+    var geolocationWatchTimer = intel.xdk.geolocation.watchPosition(suc,fail,options);
+}
+
+/* button  #btnGPS */
+$(document).on("click", "#btnGPS", function(evt)
+{
+     requestGroupPosition();
+        
+});
+
+
+document.addEventListener("deviceready",watchTimer(), false);
+//document.addEventListener("app.Ready", register_event_handlers, false);
