@@ -1,9 +1,4 @@
-
-
-
-
- 
-       
+    
 var map;
 function initMap(arrayDist) {
   map = new google.maps.Map(document.getElementById("map"), { 
@@ -11,7 +6,7 @@ function initMap(arrayDist) {
     zoom: 15
   });
     
-  for (x in arrayDist){
+  for (var x in arrayDist){
       var marker = new google.maps.Marker({
           position: new google.maps.LatLng(arrayDist[x].latitude, arrayDist[x].longitude),
           map: map,
@@ -31,10 +26,12 @@ function initMap(arrayDist) {
 
 
 function requestGroupPosition(){
-    var URL = 'http://localhost:3000/';
+    var URL = 'http://localhost:3000/track';
+    var data = {user:intel.xdk.device.uuid};
+    
             
     //JSON request for API
-    $.getJSON(URL, function(data){
+    $.getJSON(URL, data, function(data){
         alert("Request OK " + JSON.stringify(data));
         initMap(data);
     });
@@ -65,14 +62,11 @@ function watchTimer(){
                 contentType: 'application/json',
                 crossDomain: true,
                 processData: false,
-                data: JSON.stringify({"user":Math.random(),
+                data: JSON.stringify({"user":intel.xdk.device.uuid,
                                       "status":"live",
                                       "latitude":coords.latitude,
                                       "longitude":coords.longitude,
                                       })
-//                success: function (msg) {
-//                    alert(JSON.stringify(msg));
-//                }
             });
     }
 
