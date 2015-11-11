@@ -3,7 +3,7 @@ var map;
 function initMap(arrayDist) {
   map = new google.maps.Map(document.getElementById("map"), { 
     center: new google.maps.LatLng(arrayDist[0].latitude, arrayDist[0].longitude),
-    zoom: 15
+    zoom: 17
   });
     
   for (var x in arrayDist){
@@ -13,64 +13,79 @@ function initMap(arrayDist) {
           //title: arrayDist[x].user,
           visible: true
       });
+      
       var infowindow = new google.maps.InfoWindow({
         content: arrayDist[x].distancia
       });
   
                                               
-  infowindow.open(map,marker);
+      infowindow.open(map,marker);
       
   }
                                                 
 }
 
+function calcTime(arrayPoints, index){
+    var velRelativa = Number(arrayPoints[0].speed) - Number(arrayPoints[index].speed);
+    var tempo = ((Number(arrayPoints[index].value)/1000) / velRelativa)*60;   
+    return Math.round(tempo);
+}
 
 function requestGroupPosition(){
     var URL = 'http://localhost:3000/track';
     var data = {user:intel.xdk.device.uuid};
-    
-            
+    var frente = document.getElementById('itemFrente');
+    var atras = document.getElementById('itemAtras');
+         
     //JSON request for API
-    $.getJSON(URL, data, function(data){
-        alert("Request OK " + JSON.stringify(data));
-        initMap(data);
-    });
+    $.getJSON(URL, data, function(arrayPoints){
+        alert("Request OK " + JSON.stringify(arrayPoints));
+        initMap(arrayPoints);
+        frente.textContent = arrayPoints[1].user +" - "+ arrayPoints[1].value+" m"+" - "+calcTime(arrayPoints,1)+" min";
+        atras.textContent = arrayPoints[2].user+" - "+arrayPoints[2].value+" m"+" - "+calcTime(arrayPoints,2)+" min";
+    });    
 }
 
 function watchTimer(){
-
-    var options = {timeout:20000, maximumAge: 1, enableHighAccuracy: true};
+    
+    var options = {timeout:5000, maximumAge: 1000, enableHighAccuracy: true};
 
     var fail = function(){
         alert("Geolocation Failed");
-    }
+    };
 
     var suc = function(position){
         //Gravar dados da posição capturada em uma variável
-            var coords = position.coords;
+        var coords = position.coords;
+        //alert(JSON.stringify(coords));
             
-            var arrayDist; 
+        //var arrayDist; 
             
-            //var URL = 'http://tccapp.herokuapp.com/';
-            var URL = 'http://localhost:3000/';
-            
-            //JSON post for API
-            $.ajax({ 
-                type: "POST",
-                url: URL+"track",
-                dataType: 'json',
-                contentType: 'application/json',
-                crossDomain: true,
-                processData: false,
-                data: JSON.stringify({"user":intel.xdk.device.uuid,
-                                      "status":"live",
-                                      "latitude":coords.latitude,
-                                      "longitude":coords.longitude,
-                                      })
-            });
-    }
+        //var URL = 'http://tccapp.herokuapp.com/';
+        var URL = 'http://localhost:3000/';
 
-    var geolocationWatchTimer = intel.xdk.geolocation.watchPosition(suc,fail,options);
+        //JSON post for API
+        $.ajax({ 
+            type: "POST",
+            url: URL+"track",
+            dataType: 'json',
+            contentType: 'application/json',
+            crossDomain: true,
+            processData: false,
+            data: JSON.stringify({"user":intel.xdk.device.uuid,
+                                  "status":"live",
+                                  "latitude": coords.latitude,
+                                  "longitude": coords.longitude,
+                                  "speed": coords.speed,
+                                  "heading": coords.heading,
+                                  })
+        });
+            
+    };
+    
+   
+    var geolocationWatchTimer = navigator.geolocation.watchPosition(suc,fail,options);
+    
 }
 
 /* button  #btnGPS */

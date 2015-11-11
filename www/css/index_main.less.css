@@ -377,6 +377,6 @@ body:not(#afui) .upage-outer {
 }
 @media all {
   #afui .maps-size {
-    height: 400px;
+    height: 300px;
   }
 }
