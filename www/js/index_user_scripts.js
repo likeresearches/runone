@@ -1,12 +1,18 @@
     
 var map;
 function initMap(arrayDist) {
-  map = new google.maps.Map(document.getElementById("map"), { 
-    center: new google.maps.LatLng(arrayDist[0].latitude, arrayDist[0].longitude),
-    zoom: 17
-  });
+    map = new google.maps.Map(document.getElementById("map"), { 
+        center: new google.maps.LatLng(-12.96274, -38.4346),
+        zoom: 17
+    });
     
-  for (var x in arrayDist){
+    putMarker(arrayDist);
+                                                
+}
+
+function putMarker(arrayDist){
+    map.setCenter(new google.maps.LatLng(arrayDist[0].latitude, arrayDist[0].longitude));
+    for (var x in arrayDist){
       var marker = new google.maps.Marker({
           position: new google.maps.LatLng(arrayDist[x].latitude, arrayDist[x].longitude),
           map: map,
@@ -21,9 +27,9 @@ function initMap(arrayDist) {
                                               
       infowindow.open(map,marker);
       
-  }
-                                                
+    }
 }
+
 
 function calcTime(arrayPoints, index){
     var velRelativa = Number(arrayPoints[0].speed) - Number(arrayPoints[index].speed);
@@ -32,7 +38,8 @@ function calcTime(arrayPoints, index){
 }
 
 function requestGroupPosition(){
-    var URL = 'http://localhost:3000/track';
+    //var URL = 'http://localhost:3000/track';
+    var URL = 'http://tccapp.heroku.com/track';
     var data = {user:intel.xdk.device.uuid};
     var frente = document.getElementById('itemFrente');
     var atras = document.getElementById('itemAtras');
@@ -48,7 +55,7 @@ function requestGroupPosition(){
 
 function watchTimer(){
     
-    var options = {timeout:5000, maximumAge: 1000, enableHighAccuracy: true};
+    var options = {timeout:20000, maximumAge: 10000, enableHighAccuracy: true};
 
     var fail = function(){
         alert("Geolocation Failed");
@@ -61,8 +68,8 @@ function watchTimer(){
             
         //var arrayDist; 
             
-        //var URL = 'http://tccapp.herokuapp.com/';
-        var URL = 'http://localhost:3000/';
+        var URL = 'http://tccapp.herokuapp.com/';
+        //var URL = 'http://localhost:3000/';
 
         //JSON post for API
         $.ajax({ 
@@ -91,10 +98,13 @@ function watchTimer(){
 /* button  #btnGPS */
 $(document).on("click", "#btnGPS", function(evt)
 {
-     requestGroupPosition();
+     setInterval(requestGroupPosition,10000);
         
 });
 
 
-document.addEventListener("deviceready",watchTimer(), false);
+document.addEventListener("deviceready",function(){
+    watchTimer();
+    //initMap();
+}, false);
 //document.addEventListener("app.Ready", register_event_handlers, false);
