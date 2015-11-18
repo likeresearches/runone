@@ -6,7 +6,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "jsapp/template-blank-cordova-ad-project/sample.zip",
       "projectGuid": "f08a05d2-1e5c-4531-b625-941a3f3deaba",
-      "lastModifiedDate": 1447265365006,
+      "lastModifiedDate": 1447879152120,
       "creationDate": 1443549658834
     },
     "XDK-app-designer": "true",
@@ -154,11 +154,13 @@
         "appName_": "GpsMobile",
         "appID_": "xdk.intel.blank.ad.template.crosswalk",
         "appAccess_": {
-          "mode": "legacy",
+          "mode": "whitelist",
           "network": [
-            "*"
+            "http://tccapp.herokuapp.com/"
           ],
-          "intents": [],
+          "intents": [
+            "http://tccapp.herokuapp.com/"
+          ],
           "navigation": []
         },
         "icons_": [],
@@ -208,7 +210,7 @@
         "runtime_": "Cordova 3.x",
         "name_": "iOS",
         "preferences_": {
-          "ios-target": "6",
+          "ios-target": "7.0",
           "ios-configuration": "adhoc"
         },
         "isActive_": true,
@@ -217,7 +219,8 @@
         "appAccess_": {
           "mode": "legacy",
           "network": [
-            "*"
+            "*",
+            "http://tccapp.herokuapp.com/"
           ],
           "intents": [],
           "navigation": []
