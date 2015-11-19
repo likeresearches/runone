@@ -78,8 +78,8 @@
         <script type="application/javascript" src="xdk/appdesigner/js/rest-of-space.js"></script>
         <script type="application/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
         <script type="application/javascript" src="google_maps/google_maps.js"></script>
-        <script type="application/javascript" src="xdk/ad/af_subpage.js"></script>
         <script type="application/javascript" src="app_framework/3.0/appframework.ui.min.js"></script>
+        <script type="application/javascript" src="xdk/ad/af_subpage.js"></script>
     </head>
 
     <body class="af" id="afui">
@@ -89,14 +89,14 @@
         <!-- <script src="http://debug-software.intel.com/target/target-script-min.js#insertabiglongfunkynumberfromthexdkstesttab"></script> -->
 
         <div class="uwrap" id="content">
-            <div class="upage vertical-col left panel" id="user" data-header="none" data-footer="none">
+            <div class="upage vertical-col left panel" id="user" data-header="none" data-footer="none"><a class="button widget uib_w_7 d-margins" data-uib="app_framework/button" data-ver="1" id="btnIniciar">Iniciar</a>
 
-                <a class="button widget uib_w_7 d-margins" href="#mainpage" data-uib="app_framework/button" data-ver="1" id="btnIniciar">Button</a>
-                <div class="table-thing with-label widget uib_w_8 d-margins" data-uib="app_framework/input" data-ver="2">
+                <div class="table-thing with-label widget uib_w_8 d-margins" data-uib="app_framework/textarea" data-ver="2">
                     <label class="narrow-control label-inline" for="txtUser">Nome:</label>
-                    <input class="wide-control" placeholder="Digite seu nome" type="text" id="txtUser">
+                    <textarea class="wide-control" placeholder="Placeholder Text" rows="2" wrap="soft" id="txtUser"></textarea>
                 </div>
             </div>
+
             <div class="upage vertical-col left panel" id="mainpage" data-header="af-header-0" data-footer="none"><a class="button widget uib_w_2 d-margins icon location green" data-uib="app_framework/button" data-ver="1" id="btnGPS">My Position</a> 
                 <div class="widget uib_w_3 maps-size d-margins" data-uib="media/google_maps" data-ver="0" data-rpath="null" id="map"></div>
                 <ul class="list widget uib_w_4 d-margins" data-uib="app_framework/listview" data-ver="1" id="list">
